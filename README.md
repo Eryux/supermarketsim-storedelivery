@@ -1,4 +1,4 @@
-# StoreDelivery - Mod
+# StoreDelivery - Supermarket sim. mod
 
 StoreDelivery is a mod for Supermarket Simulator which add an option to place product boxes on racks in storage right after being purchased and delivred. To work, racks must have a product label.
 
@@ -24,7 +24,7 @@ If a product doesn't have place in storage the box will appear in front of the s
 ### Steps
 
 - Install BepInEx 5 on the game if you don't already have it.
-- Download the last release of the mod compatible with your game version in [release section]().
+- Download the last release of the mod compatible with your game version in [release section](https://github.com/Eryux/supermarketsim-storedelivery/releases).
 - Extract the archive and copy the `BepInEx` folder in the game root folder `%steamapp%\common\Supermarket Simulator`. If it ask you to replace files, say yes to all.
 - Launch the game, go to the computer > Market application > Open your cart then if you have a checkbox at the bottom of the cart window with the text "Store delivery in storage", the mod is successfully installed.
 
@@ -55,7 +55,7 @@ fees_per_boxes = 3
 
 ## Troubleshooting
 
-If you encounter a bug, please report it in [issues section]() on the official [github repository]() of the mod.
+If you encounter a bug, please report it in [issues section](https://github.com/Eryux/supermarketsim-storedelivery/issues) on the official [github repository](https://github.com/Eryux/supermarketsim-storedelivery/) of the mod.
 
 ### Incompatibility with other mods
 
