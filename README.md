@@ -25,6 +25,7 @@ If a product doesn't have place in storage the box will appear in front of the s
 ### Steps
 
 - Install BepInEx 5 on the game if you don't already have it.
+- Open `BepInEx.cfg` and set `HideManagerGameObject` to `true` then save and close the file. (not needed if you use pre-configured Tobey's BepInEx for Supermarker Simulator)
 - Download the latest release of the mod compatible with your game version in [release section](https://github.com/Eryux/supermarketsim-storedelivery/releases).
 - Extract the archive and copy the `BepInEx` folder in the game root folder `%steamapp%\common\Supermarket Simulator`. If it asks you to replaces files, say yes to all.
 - Launch the game, go to the computer > Market application > Open your cart then if you have a checkbox at the bottom of the cart window with the text "Place delivery in storage", the mod is successfully installed.
