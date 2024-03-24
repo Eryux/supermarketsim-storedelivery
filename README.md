@@ -1,12 +1,12 @@
 # StoreDelivery - Supermarket sim. mod
 
-StoreDelivery is a mod for Supermarket Simulator which adds an option to place product boxes on racks in storage right after being purchased and delivred. To work, racks must have a product label.
+StoreDelivery is a mod for Supermarket Simulator which adds an option to place product boxes on racks in storage automatically right after delivery.
 
 ![StoreDelivery banner](./banner.png)
 
 ## How it works
 
-Go on the market app on the store computer, add some products to your cart then click on the cart button to open the purchase window. On the purchase window you have a checkbox with the label `Place delivery in storage`. If it's checked, additional fees will be applied to your order and all products in your order that can be placed on a rack with a matching label, will be placed on instantly after being delivred.
+Go on the market app on the store computer, add some products to your cart then click on the cart button to open the purchase window. On the purchase window you have a checkbox with the label Place delivery in storage. If it's checked, additional fees will be applied to your order and all products in your order that can be placed on a rack with a matching label, will be placed on instantly after being delivred.
 
 Fees cost are calculated based on the number of product boxes in your delivery, this can be changed in the mod configuration file.
 
@@ -14,7 +14,6 @@ If a product doesn't have place in storage the box will appear in front of the s
 
 
 ## Installation
-
 
 ### Requirements
 
@@ -36,6 +35,9 @@ If a product doesn't have place in storage the box will appear in front of the s
 Mod configuration is available in `config/tf.bark.sms.StoreDelivery.cfg`. The change will apply after restarting the game.
 
 ```toml
+## Settings file was created by plugin StoreDelivery v1.0.2
+## Plugin GUID: tf.bark.sms.StoreDelivery
+
 [StoreDelivery]
 
 ## Enable StoreDelivery Plugin
@@ -52,6 +54,16 @@ fees_enables = true
 # Setting type: Single
 # Default value: 3
 fees_per_boxes = 3
+
+## Allow the mod to place box on empty rack with no label
+# Setting type: Boolean
+# Default value: false
+use_empty_rack = false
+
+## Allow the mod to place box on empty rack even if its label doesn't match with the product
+# Setting type: Boolean
+# Default value: false
+use_empty_rack_w_label = false
 ```
 
 
@@ -69,7 +81,7 @@ The mod act on cart window, cart cost, purchase and delivery. If you have other 
 ### Requirement
 
 - .NET SDK 7.0.407
-- Marker simulator installed
+- Supermarket Simulator installed
 
 ### Steps
 
