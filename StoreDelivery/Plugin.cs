@@ -180,7 +180,7 @@ namespace StoreDelivery
                         {
                             RackSlot rackSlot = rackManager.GetRackSlotThatHasSpaceFor(box.Product.ID, box.BoxID);
 
-                            if (rackSlot != null && rackSlot.Data != null && rackSlot.Data.ProductID != -1)
+                            if (rackSlot != null && rackSlot.Data != null && rackSlot.Data.ProductID == box.Product.ID)
                             {
                                 Logger.LogDebug("Rack found for " + box.BoxID);
 
