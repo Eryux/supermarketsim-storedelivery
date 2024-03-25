@@ -4,12 +4,20 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>StoreDelivery</AssemblyName>
     <Description>Place delivery in storage after purchasing</Description>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <Authors>Eryux</Authors>
     <PackageProjectUrl>https://github.com/Eryux</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\storedelivery_ui" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\storedelivery_ui" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
@@ -24,16 +32,16 @@
   
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="MyBox">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\MyBox.dll</HintPath>
+      <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\MyBox.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

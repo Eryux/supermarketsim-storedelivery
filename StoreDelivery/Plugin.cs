@@ -6,12 +6,13 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace StoreDelivery
 {
-    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.0.0")]
+    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.0.2")]
     [BepInProcess("Supermarket Simulator.exe")]
     public class Plugin : BaseUnityPlugin
     {
@@ -35,8 +36,7 @@ namespace StoreDelivery
 
         private void Awake()
         {
-            DeliveryManagerPatch._plugin = this;
-            MarketShoppingCartPatch._plugin = this;
+            // Load configuration ---------------
 
             Cfg = new Config(Config);
             Logger.LogInfo("Configuration loaded");
@@ -47,22 +47,45 @@ namespace StoreDelivery
                 return;
             }
 
+            // Apply patches --------------------
+
             Logger.LogInfo("Apply patches...");
+            DeliveryManagerPatch._plugin = this;
+            MarketShoppingCartPatch._plugin = this;
             _patches = new Harmony("tf.bark.sms.StoreDelivery.patches");
             _patches.PatchAll(typeof(DeliveryManagerPatch));
             _patches.PatchAll(typeof(MarketShoppingCartPatch));
 
+            // Load assets ----------------------
 
-            string uiAssetPath = Path.Combine(Paths.PluginPath, "StoreDelivery/storedelivery_ui");
-            Logger.LogInfo($"Load asset : {uiAssetPath}");
+            Logger.LogInfo($"Loading assets...");
 
-            try {
-                _assetBundle = AssetBundle.LoadFromFile(uiAssetPath);
-            } catch (Exception ex) {
-                Logger.LogError("Failed to load asset!");
-                Logger.LogError(ex);
-                Destroy(this);
+            foreach (string x in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+            {
+                Logger.LogInfo(x);
             }
+
+            try
+            {
+                byte[] buff = null;
+
+                using (Stream reader = Assembly.GetExecutingAssembly().GetManifestResourceStream("StoreDelivery.assets.storedelivery_ui"))
+                {
+                    buff = new byte[reader.Length];
+                    reader.Read(buff, 0, buff.Length);
+                }
+
+                _assetBundle = AssetBundle.LoadFromMemory(buff);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Failed to load assets!");
+                Logger.LogError(ex.ToString());
+                Destroy(this);
+                return;
+            }
+
+            // ----------------------------------
 
             Logger.LogInfo("Mod is loaded!");
         }
@@ -140,7 +163,6 @@ namespace StoreDelivery
             Logger.LogDebug("Add boxes to stockage racks");
 
             DeliveryManager deliveryManager = MyBox.Singleton<DeliveryManager>.Instance;
-
             if (deliveryManager != null)
             {
                 List<Box> boxes = new List<Box>();
@@ -167,7 +189,6 @@ namespace StoreDelivery
                 }
 
                 RackManager rackManager = MyBox.Singleton<RackManager>.Instance;
-
                 if (rackManager != null)
                 {
                     for (int i = 0; i < boxes.Count; ++i)
@@ -176,43 +197,16 @@ namespace StoreDelivery
 
                         Logger.LogDebug("Checking for box " + box.BoxID + " with product " + box.Product.ID);
 
-                        if (box.HasProducts)
+                        RackSlot rackSlot = RackTool.GetRackSlotFor(box, Cfg.ConfigUseEmptyRackSlot.Value, Cfg.ConfigUseEmptyRackWithLabel.Value);
+
+                        if (rackSlot != null)
                         {
-                            RackSlot rackSlot = rackManager.GetRackSlotThatHasSpaceFor(box.Product.ID, box.BoxID);
-
-                            if (rackSlot != null && rackSlot.Data != null && rackSlot.Data.ProductID == box.Product.ID)
-                            {
-                                Logger.LogDebug("Rack found for " + box.BoxID);
-
-                                PlaceBoxInRack(rackSlot, box);
-                            }
+                            Logger.LogDebug("Rack found for " + box.BoxID);
+                            RackTool.PlaceBoxInRack(rackSlot, box);
                         }
                     }
                 }
             }
-        }
-
-        void PlaceBoxInRack(RackSlot rackSlot, Box box)
-        {
-            Collider[] componentsInChildren = box.GetComponentsInChildren<Collider>();
-            for (int i = 0; i < componentsInChildren.Length; i++)
-            {
-                componentsInChildren[i].isTrigger = false;
-            }
-
-            Rigidbody boxPhysics;
-            if (box.TryGetComponent<Rigidbody>(out boxPhysics))
-            {
-                boxPhysics.isKinematic = true;
-                boxPhysics.velocity = Vector3.zero;
-                boxPhysics.interpolation = RigidbodyInterpolation.None;
-            }
-
-            box.gameObject.layer = LayerMask.NameToLayer("Interactable");
-
-            rackSlot.AddBox(box.BoxID, box);
-
-            box.Racked = true;
         }
     }
 }
