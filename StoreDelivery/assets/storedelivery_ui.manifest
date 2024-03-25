@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3644396043
+CRC: 1982232371
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 117085961e35df5b28d1e603c1088f4c
+    Hash: 1dc8d10ae65d43c4a69a5f073c93786c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 667b9f08f0527463650e7cfab25cc3d4
+    Hash: cc928a9efcd1b54c70263e2621ba67b6
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -14,8 +14,6 @@ ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
@@ -28,8 +26,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -80,6 +76,5 @@ Assets:
 - Assets/storeDelivery_cart.prefab
 - Assets/storeDelivery_storage_price.prefab
 - Assets/storeDelivery_storage_text.prefab
-- Assets/UptownBoy.ttf
-- Assets/UptownBoy SDF.asset
-Dependencies: []
+Dependencies:
+- F:/Users/Nicolas/Workspace/StockDelivery_playground/Assets/AssetBundles/gamefile

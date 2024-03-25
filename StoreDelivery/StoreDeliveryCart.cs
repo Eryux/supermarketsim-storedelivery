@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 
 namespace StoreDelivery
@@ -42,6 +43,8 @@ namespace StoreDelivery
 
         Vector2 _totalPricePositionDefault;
 
+        TMP_FontAsset _font;
+
 
         bool _enableStorage = true;
 
@@ -64,7 +67,10 @@ namespace StoreDelivery
         {
             if (!_initialized)
             {
+                _font = Resources.FindObjectsOfTypeAll<TMP_FontAsset>().FirstOrDefault(x => x.name == "UptownBoy SDF");
+
                 CreateAndAddCartUI();
+
                 _initialized = true;
             }
 
@@ -117,11 +123,18 @@ namespace StoreDelivery
                     _cartToggleContainerTransform.anchoredPosition = Vector2.zero;
 
                     _cartToggle = _cartToggleContainerTransform.GetChild(1).GetChild(0).GetComponent<Toggle>();
-                    if (_cartToggle != null)
+
+                    if (_cartToggle != null) 
                     {
                         _cartToggle.onValueChanged.AddListener(OnStoreDeliveryStatusChanged);
                     }
 
+                    // Set font for label
+                    TextMeshProUGUI cartToggleLabelText = _cartToggleContainerTransform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
+                    if (cartToggleLabelText != null && _font != null)
+                    {
+                        cartToggleLabelText.font = _font;
+                    }
 
                     // Add cost
                     parent = (RectTransform)parent.transform.GetChild(1);
@@ -130,10 +143,23 @@ namespace StoreDelivery
                     _cartStorageCostLabelTransform = (RectTransform)cartStorageCostLabelObject.transform;
                     _cartStorageCostLabelTransform.anchoredPosition = new Vector2(-19.2f, 91.2f);
 
+                    TextMeshProUGUI cartStorageCostLabelText = cartStorageCostLabelObject.GetComponent<TextMeshProUGUI>();
+
+                    if (cartStorageCostLabelText != null && _font != null)
+                    {
+                        cartStorageCostLabelText.font = _font;
+                    }
+
                     GameObject cartStorageCostValueTextObject = Instantiate(Assets.LoadAsset<GameObject>("storeDelivery_storage_price"), parent);
                     RectTransform cartStorageCostValueTextTransform = (RectTransform)cartStorageCostValueTextObject.transform;
                     cartStorageCostValueTextTransform.anchoredPosition = new Vector2(20.2f, 91.2f);
+                    
                     _cartStorageCostValueText = cartStorageCostValueTextObject.GetComponent<TextMeshProUGUI>();
+
+                    if (_cartStorageCostValueText != null && _font != null)
+                    {
+                        _cartStorageCostValueText.font = _font;
+                    }
 
                     _divideTransform = (RectTransform)parent.Find("Divide");
                     _dividePositionDefault = _divideTransform.anchoredPosition;
