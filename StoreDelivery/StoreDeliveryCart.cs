@@ -99,10 +99,10 @@ namespace StoreDelivery
 
                 if (cartWindow != null)
                 {
-                    RectTransform parent = (RectTransform)cartWindow.transform.GetChild(cartWindow.transform.childCount - 1);
+                    RectTransform parent = (RectTransform)cartWindow.transform.Find("Window BG");
 
                     // Resize cart scrollview
-                    RectTransform cartScrollViewTransform = (RectTransform)parent.transform.GetChild(parent.transform.childCount - 1);
+                    RectTransform cartScrollViewTransform = (RectTransform)parent.transform.Find("Products Scroll View");
                     
                     if (cartScrollViewTransform != null)
                     {
