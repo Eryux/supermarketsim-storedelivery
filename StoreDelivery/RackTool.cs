@@ -48,19 +48,13 @@ namespace StoreDelivery
                 componentsInChildren[i].isTrigger = false;
             }
 
-            Rigidbody boxPhysics;
-            if (box.TryGetComponent<Rigidbody>(out boxPhysics))
-            {
-                boxPhysics.isKinematic = true;
-                boxPhysics.velocity = Vector3.zero;
-                boxPhysics.interpolation = RigidbodyInterpolation.None;
-            }
-
-            box.gameObject.layer = LayerMask.NameToLayer("Interactable");
+            box.SetOccupy(false, null);
+            box.FrezeeBox();
 
             rackSlot.AddBox(box.BoxID, box);
-
             box.Racked = true;
+
+            box.gameObject.layer = LayerMask.NameToLayer("Interactable");
         }
     }
 }
