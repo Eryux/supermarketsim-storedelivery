@@ -43,5 +43,8 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Supermarket Simulator\Supermarket Simulator_Data\Managed\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

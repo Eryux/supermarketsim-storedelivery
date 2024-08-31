@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace StoreDelivery
 {
-    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.1.0")]
+    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.1.1")]
     [BepInProcess("Supermarket Simulator.exe")]
     public class Plugin : BaseUnityPlugin
     {
@@ -203,6 +203,12 @@ namespace StoreDelivery
                         {
                             Logger.LogDebug("Rack found for " + box.BoxID);
                             RackTool.PlaceBoxInRack(rackSlot, box);
+
+                            if (Cfg.ConfigOrganizeRack.Value)
+                            {
+                                Logger.LogDebug("Organizing rack " + rackSlot.name);
+                                RackTool.SortBoxesOnRackSlot(rackSlot);
+                            }
                         }
                     }
                 }
