@@ -52,8 +52,8 @@ fees_enables = true
 
 ## Fees added for each product box in your delivery
 # Setting type: Single
-# Default value: 3
-fees_per_boxes = 3
+# Default value: 1
+fees_per_boxes = 1
 
 ## Allow the mod to place box on empty rack with no label
 # Setting type: Boolean
@@ -64,6 +64,11 @@ use_empty_rack = false
 # Setting type: Boolean
 # Default value: false
 use_empty_rack_w_label = false
+
+## Sort boxes on rack to have boxes with less products on top when boxes are added after a purchase.
+# Setting type: Boolean
+# Default value: true
+organize_rack = true
 ```
 
 
