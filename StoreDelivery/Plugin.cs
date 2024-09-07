@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace StoreDelivery
 {
-    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.1.1")]
+    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.1.2")]
     [BepInProcess("Supermarket Simulator.exe")]
     public class Plugin : BaseUnityPlugin
     {
