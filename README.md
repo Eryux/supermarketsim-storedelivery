@@ -12,14 +12,12 @@ Fees cost are calculated based on the number of product boxes in your delivery, 
 
 If a product doesn't have place in storage the box will appear in front of the store as usual but you will still have to pay the fees for this box.
 
-
 ## Installation
 
 ### Requirements
 
 - Compatible version of Supermarket Simulator
 - BepInEx 5.x ([download](https://github.com/BepInEx/BepInEx/releases) and [installation guide](https://docs.bepinex.dev/articles/user_guide/installation/index.html))
-
 
 ### Steps
 
@@ -29,6 +27,14 @@ If a product doesn't have place in storage the box will appear in front of the s
 - Extract the archive and copy the `BepInEx` folder in the game root folder `%steamapp%\common\Supermarket Simulator`. If it asks you to replaces files, say yes to all.
 - Launch the game, go to the computer > Market application > Open your cart then if you have a checkbox at the bottom of the cart window with the text "Place delivery in storage", the mod is successfully installed.
 
+#### Compatibility sheet
+
+| Game / Mod versions | 1.2.0 | 1.1.2 | 1.1.1 | 1.1.0 | 1.0.2 |
+|:-------------------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| **0.3.0**           | ✔     | ❌     | ❌     | ❌     | ❌     |
+| **0.2.1.2**         | ❌     | ✔     | ❌     | ❌     | ❌     |
+| **0.2.1 > 0.2.1.1** | ❌     | ❌     | ✔     | ✔     | ❌     |
+| **0.1.2.1 > 0.2**   | ❌     | ❌     | ❌     | ❌     | ✔     |
 
 ### Configuration
 
@@ -71,7 +77,6 @@ use_empty_rack_w_label = false
 organize_rack = true
 ```
 
-
 ## Troubleshooting
 
 If you encounter a bug, please report it in [issues section](https://github.com/Eryux/supermarketsim-storedelivery/issues) on the official [github repository](https://github.com/Eryux/supermarketsim-storedelivery/) from the mod.
@@ -79,7 +84,6 @@ If you encounter a bug, please report it in [issues section](https://github.com/
 ### Incompatibility with other mods
 
 The mod act on cart window, cart cost, purchase and delivery. If you have other mod acting on one of those or more it can cause some incompatibility. If an incompatibility is detected with other mods it will be listed here.
-
 
 ## Building
 
@@ -91,11 +95,14 @@ The mod act on cart window, cart cost, purchase and delivery. If you have other 
 ### Steps
 
 - Clone the repository on your machine.
+
 - Open the `StoreDelivery.csproj` file with a text editor and edit the path `HintPath` from `Reference` tags to match your game installation directory.
+
 - Open a terminal and run the command :
-```
-dotnet build --no-self-contained -c Release
-```
+  
+  ```
+  dotnet build --no-self-contained -c Release
+  ```
 
 ## License
 

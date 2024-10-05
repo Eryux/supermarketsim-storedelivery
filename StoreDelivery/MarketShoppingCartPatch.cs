@@ -21,7 +21,7 @@ namespace StoreDelivery
         {
             int totalItem = 0;
 
-            var cartData = typeof(MarketShoppingCart).GetField("m_CartData", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance) as MarketShoppingCart.CartData;
+            var cartData = __instance.CartData;
 
             for (int i = 0; i < cartData.ProductInCarts.Count; ++i)
             {
@@ -75,7 +75,7 @@ namespace StoreDelivery
                 var m_EnoughMoneyTextColor = (Color)typeof(MarketShoppingCart).GetField("m_EnoughMoneyTextColor", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
                 var m_NotEnoughMoneyTextColor = (Color)typeof(MarketShoppingCart).GetField("m_NotEnoughMoneyTextColor", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
                 var m_PurchaseButton = (Button)typeof(MarketShoppingCart).GetField("m_PurchaseButton", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
-                var m_CartData = (MarketShoppingCart.CartData)typeof(MarketShoppingCart).GetField("m_CartData", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
+                var m_CartData = __instance.CartData;
                 var m_MarketClosed = (bool)typeof(MarketShoppingCart).GetField("m_MarketClosed", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
                 var m_TotalPriceTexts = (TMP_Text[])typeof(MarketShoppingCart).GetField("m_TotalPriceTexts", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
 

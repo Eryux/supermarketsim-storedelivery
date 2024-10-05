@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace StoreDelivery
 {
-    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.1.2")]
+    [BepInPlugin("tf.bark.sms.StoreDelivery", "StoreDelivery", "1.2.0")]
     [BepInProcess("Supermarket Simulator.exe")]
     public class Plugin : BaseUnityPlugin
     {
@@ -136,6 +136,9 @@ namespace StoreDelivery
             _storeDeliveryCart = storeDeliveryCartObject.AddComponent<StoreDeliveryCart>();
             _storeDeliveryCart.Plugin = this;
             _storeDeliveryCart.Assets = _assetBundle;
+
+            DeliveryManager deliveryManager = MyBox.Singleton<DeliveryManager>.Instance;
+            deliveryManager.OnDeliveryCompleted += StockBoxInRacks;
         }
 
         public void AddProductDeliveryStock(int productID, int quantity)
@@ -153,7 +156,7 @@ namespace StoreDelivery
             }
         }
 
-        public void StockBoxInRacks()
+        public void StockBoxInRacks(List<GameObject> boxesObject)
         {
             if (_storeDeliveryCart == null || !_storeDeliveryCart.StorageEnabled)
             {
@@ -162,53 +165,49 @@ namespace StoreDelivery
 
             Logger.LogDebug("Add boxes to stockage racks");
 
-            DeliveryManager deliveryManager = MyBox.Singleton<DeliveryManager>.Instance;
-            if (deliveryManager != null)
+            List<Box> boxes = new List<Box>();
+
+            for (int i = 0; i < boxesObject.Count; ++i)
             {
-                List<Box> boxes = new List<Box>();
+                Box box = boxesObject[i].GetComponent<Box>();
 
-                for (int i = 0; i < deliveryManager.transform.childCount; ++i)
+                if (box != null)
                 {
-                    Box box = deliveryManager.transform.GetChild(i).GetComponent<Box>();
+                    Logger.LogDebug("Find box with product " + box.Product.ID);
 
-                    if (box != null)
+                    if (_productDeliveryStocks.ContainsKey(box.Product.ID))
                     {
-                        Logger.LogDebug("Find box with product " + box.Product.ID);
+                        Logger.LogDebug("Stock " + _productDeliveryStocks[box.Product.ID]);
+                    }
 
-                        if (_productDeliveryStocks.ContainsKey(box.Product.ID))
-                        {
-                            Logger.LogDebug("Stock " + _productDeliveryStocks[box.Product.ID]);
-                        }
-
-                        if (box != null && _productDeliveryStocks.ContainsKey(box.Product.ID) && _productDeliveryStocks[box.Product.ID] > 0)
-                        {
-                            boxes.Add(box);
-                            _productDeliveryStocks[box.Product.ID] -= 1;
-                        }
+                    if (box != null && _productDeliveryStocks.ContainsKey(box.Product.ID) && _productDeliveryStocks[box.Product.ID] > 0)
+                    {
+                        boxes.Add(box);
+                        _productDeliveryStocks[box.Product.ID] -= 1;
                     }
                 }
+            }
 
-                RackManager rackManager = MyBox.Singleton<RackManager>.Instance;
-                if (rackManager != null)
+            RackManager rackManager = MyBox.Singleton<RackManager>.Instance;
+            if (rackManager != null)
+            {
+                for (int i = 0; i < boxes.Count; ++i)
                 {
-                    for (int i = 0; i < boxes.Count; ++i)
+                    Box box = boxes[i];
+
+                    Logger.LogDebug("Checking for box " + box.BoxID + " with product " + box.Product.ID);
+
+                    RackSlot rackSlot = RackTool.GetRackSlotFor(box, Cfg.ConfigUseEmptyRackSlot.Value, Cfg.ConfigUseEmptyRackWithLabel.Value);
+
+                    if (rackSlot != null)
                     {
-                        Box box = boxes[i];
+                        Logger.LogDebug("Rack found for " + box.BoxID);
+                        RackTool.PlaceBoxInRack(rackSlot, box);
 
-                        Logger.LogDebug("Checking for box " + box.BoxID + " with product " + box.Product.ID);
-
-                        RackSlot rackSlot = RackTool.GetRackSlotFor(box, Cfg.ConfigUseEmptyRackSlot.Value, Cfg.ConfigUseEmptyRackWithLabel.Value);
-
-                        if (rackSlot != null)
+                        if (Cfg.ConfigOrganizeRack.Value)
                         {
-                            Logger.LogDebug("Rack found for " + box.BoxID);
-                            RackTool.PlaceBoxInRack(rackSlot, box);
-
-                            if (Cfg.ConfigOrganizeRack.Value)
-                            {
-                                Logger.LogDebug("Organizing rack " + rackSlot.name);
-                                RackTool.SortBoxesOnRackSlot(rackSlot);
-                            }
+                            Logger.LogDebug("Organizing rack " + rackSlot.name);
+                            RackTool.SortBoxesOnRackSlot(rackSlot);
                         }
                     }
                 }

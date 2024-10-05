@@ -11,7 +11,7 @@ namespace StoreDelivery
         public static Plugin _plugin;
 
 
-        static void Prefix(ref MarketShoppingCart.CartData cartData)
+        static void Prefix(ref CartData cartData)
         {
             if (_plugin != null)
             {
@@ -23,15 +23,6 @@ namespace StoreDelivery
                         _plugin.AddProductDeliveryStock(productQuantity.FirstItemID, productQuantity.FirstItemCount);
                     }
                 }
-            }
-        }
-
-
-        static void Postfix()
-        {
-            if (_plugin != null)
-            {
-                _plugin.StockBoxInRacks();
             }
         }
     }
