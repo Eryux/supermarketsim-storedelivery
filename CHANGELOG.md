@@ -1,6 +1,32 @@
 # StoreDelivery - Changelogs
 
-**version 1.0.2 (latest)**
+**version 1.2.0 (latest)**
+
+Release date - 10-05-2024
+
+```
+- Add support for game version 0.3.0
+```
+
+**version 1.1.2**
+
+Release date - 09-07-2024
+
+    - Add support for game version 0.2.1.2
+
+**version 1.1.1**
+
+Release date - 08-31-2024
+
+    - Sort boxes on rack after restocking (box with less product in first)
+
+**version 1.1.0**
+
+Release date - 08-24-2024
+
+    - Add support for game version 0.2.1
+
+**version 1.0.2**
 
 Release date - 03-25-2024
 
@@ -8,13 +34,11 @@ Release date - 03-25-2024
     - Removed game font from assets files
     - Packed assets files in the .dll as embeded resources
 
-
 **version 1.0.1**
 
 Release date - 03-24-2024
 
     - Fix bug when a product take the place of another on rack if it empty
-
 
 **version 1.0.0**
 
